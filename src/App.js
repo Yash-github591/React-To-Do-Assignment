@@ -2,14 +2,14 @@ import "./App.css";
 import { Button } from "@mui/material";
 import Task from "./Components/Task";
 import AddIcon from "@mui/icons-material/Add";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import AddTask from "./Components/AddTask";
 import AlertBox from "./Components/Alert";
-import { TaskContext } from "./Context/TaskContext";
+import { useSelector } from "react-redux";
 
 function App() {
   const [addTask, setAddTask] = useState(false);
-  const { tasks, alertMessage } = useContext(TaskContext);
+  const tasksFromStore = useSelector((state) => state.task.tasks);
 
   return (
     <>
@@ -33,7 +33,7 @@ function App() {
             >
               Tasks:-
             </h2>
-            {tasks.map((task) => (
+            {tasksFromStore.map((task) => (
               <Task key={task.id} task={task} />
             ))}
             <Button

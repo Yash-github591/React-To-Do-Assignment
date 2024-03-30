@@ -1,11 +1,12 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { useState, useContext } from "react";
-import { TaskContext } from "../Context/TaskContext";
+import { useState } from "react";
 import { Alert, TextField } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { updateTaskOnStore } from "../features/taskSlice";
+import { openAlert, closeAlert } from "../features/alertSlice";
 
 const style = {
   position: "absolute",
@@ -23,24 +24,31 @@ const style = {
 export default function EditfTask({ editTask, setEditTask, task }) {
   const [taskHeading, setTaskHeading] = useState(task.heading);
   const [description, setDescription] = useState(task.description);
-  const { tasks, setTasks, setOpenAlert, setAlertMessage } =
-    useContext(TaskContext);
 
+  const dispatch = useDispatch();
   const handleEdit = () => {
-    setTasks(
-      tasks.map((item) =>
-        item.id === task.id
-          ? {
-              ...item,
-              heading: taskHeading,
-              description: description,
-            }
-          : item
-      )
+    // setTasks(
+    //   tasks.map((item) =>
+    //     item.id === task.id
+    //       ? {
+    //           ...item,
+    //           heading: taskHeading,
+    //           description: description,
+    //         }
+    //       : item
+    //   )
+    // );
+    dispatch(
+      updateTaskOnStore({
+        id: task.id,
+        heading: taskHeading,
+        description: description,
+      })
     );
     setEditTask(false);
-    setAlertMessage("Task Updated Successfully!");
-    setOpenAlert(true);
+    // setAlertMessage("Task Updated Successfully!");
+    // setOpenAlert(true);
+    dispatch(openAlert({ message: "Task Updated Successfully!" }));
   };
   const handleClose = () => setEditTask(false);
 

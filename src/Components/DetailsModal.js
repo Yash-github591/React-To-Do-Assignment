@@ -1,5 +1,4 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
@@ -54,7 +53,7 @@ export default function DetailsModal({
             />
             <CardContent>
               <Typography variant="body2" color="text.secondary" sx={{ mt: 0 }}>
-                <u>Status</u>:{status}
+                <u>Status</u>: {status}
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ my: 1 }}>
                 <u>Description</u>:-

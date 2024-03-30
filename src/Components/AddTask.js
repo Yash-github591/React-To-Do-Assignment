@@ -1,11 +1,12 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useState, useContext } from "react";
-import { TaskContext } from "../Context/TaskContext";
 import { TextField } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { addTaskToStore } from "../features/taskSlice";
+import { openAlert, closeAlert } from "../features/alertSlice";
 
 const style = {
   position: "absolute",
@@ -23,23 +24,28 @@ const style = {
 export default function AddTask({ addTask, setAddTask }) {
   const [taskHeading, setTaskHeading] = useState("");
   const [description, setDescription] = useState("");
-  const { tasks, setTasks, setOpenAlert, setAlertMessage } =
-    useContext(TaskContext);
-
+  const dispatch = useDispatch();
   const handleAdd = () => {
-    setTasks([
-      ...tasks,
-      {
-        id: tasks.length + 1,
+    // setTasks([
+    //   ...tasks,
+    //   {
+    //     id: tasks.length + 1,
+    //     heading: taskHeading,
+    //     description: description,
+    //     addedOn: new Date().toString(),
+    //     status: "Pending",
+    //   },
+    // ]);
+    dispatch(
+      addTaskToStore({
         heading: taskHeading,
         description: description,
-        addedOn: new Date().toString(),
-        status: "Pending",
-      },
-    ]);
+      })
+    );
     setAddTask(false);
-    setAlertMessage("Task Added Successfully!");
-    setOpenAlert(true);
+    // setAlertMessage("Task Added Successfully!");
+    // setOpenAlert(true);
+    dispatch(openAlert({ message: "Task Added Successfully!" }));
   };
   const handleClose = () => setAddTask(false);
 

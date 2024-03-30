@@ -1,9 +1,13 @@
 import { Box, Button, Checkbox, IconButton } from "@mui/material";
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DetailsModal from "./DetailsModal";
 import EditTask from "./EditTask";
-import { TaskContext } from "../Context/TaskContext";
+import { useDispatch } from "react-redux";
+import {
+  deleteTaskFromStore,
+  toggleStatusOnStore,
+} from "../features/taskSlice";
 
 function Task({ task }) {
   const [checked, setChecked] = useState(
@@ -11,13 +15,9 @@ function Task({ task }) {
   );
   const [editTask, setEditTask] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
-  const { tasks, setTasks, setOpenAlert, setAlertMessage } =
-    useContext(TaskContext);
-
+  const dispatch = useDispatch();
   const handleDelete = () => {
-    setTasks(tasks.filter((item) => item.id !== task.id));
-    setAlertMessage("Task Deleted Successfully!");
-    setOpenAlert(true);
+    dispatch(deleteTaskFromStore({ id: task.id }));
   };
   const handleDetails = () => {
     setShowDetails(true);
@@ -25,15 +25,10 @@ function Task({ task }) {
 
   const handleChange = (e) => {
     setChecked(e.target.checked);
-    setTasks(
-      tasks.map((item) =>
-        item.id === task.id
-          ? {
-              ...item,
-              status: e.target.checked ? "Completed" : "Pending",
-            }
-          : item
-      )
+    dispatch(
+      toggleStatusOnStore({
+        id: task.id,
+      })
     );
   };
   return (
