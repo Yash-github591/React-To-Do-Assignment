@@ -33,9 +33,18 @@ function App() {
             >
               Tasks:-
             </h2>
-            {tasksFromStore.map((task) => (
-              <Task key={task.id} task={task} />
-            ))}
+            {tasksFromStore.length === 0 && (
+              <h3
+                style={{
+                  textAlign: "left",
+                  marginLeft: "20%",
+                }}
+              >
+                No Tasks Available
+              </h3>
+            )}
+            {tasksFromStore.length > 0 &&
+              tasksFromStore.map((task) => <Task key={task.id} task={task} />)}
             <Button
               variant="contained"
               startIcon={<AddIcon />}

@@ -3,18 +3,15 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { TaskContextProvider } from "./Context/TaskContext";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <TaskContextProvider>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </TaskContextProvider>
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 
