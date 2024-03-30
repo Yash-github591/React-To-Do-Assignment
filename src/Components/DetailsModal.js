@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import { Card, CardActions, CardContent, CardHeader } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -36,31 +37,46 @@ export default function DetailsModal({
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={style}>
-            <h2>
-              <strong>
-                <u>Task Details</u>
-              </strong>
-            </h2>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Task Heading: {heading}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Status: {status}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Added On:{" "}
-              {new Date(addedOn).toLocaleString("en-IN", {
+          <Card
+            sx={{
+              maxWidth: 345,
+              margin: "auto",
+              marginTop: "10%",
+              borderRadius: 4,
+              padding: 2,
+            }}
+          >
+            <CardHeader
+              title={heading}
+              subheader={new Date(addedOn).toLocaleString("en-IN", {
                 timeZone: "Asia/Kolkata",
               })}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Description: {description}
-            </Typography>
-            <Button onClick={handleClose} sx={{ mt: 2, ml: 2 }}>
-              Close
-            </Button>
-          </Box>
+            />
+            <CardContent>
+              <Typography variant="body2" color="text.secondary" sx={{ mt: 0 }}>
+                <u>Status</u>:{status}
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ my: 1 }}>
+                <u>Description</u>:-
+              </Typography>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                whiteSpace="pre-wrap"
+              >
+                {description}
+              </Typography>
+            </CardContent>
+            <CardActions disableSpacing>
+              <Button
+                variant="outlined"
+                onClick={handleClose}
+                sx={{ mt: 2, ml: 2 }}
+              >
+                Close
+              </Button>
+            </CardActions>
+          </Card>
         </Modal>
       </div>
     </>

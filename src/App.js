@@ -20,27 +20,33 @@ function App() {
         <br />
         <div className="task-container">
           <AlertBox />
-          <h2
+          <div
             style={{
-              textAlign: "left",
-              marginLeft: "20%",
+              marginLeft: "10%",
             }}
           >
-            Tasks:-
-          </h2>
-          {tasks.map((task) => (
-            <Task key={task.id} task={task} />
-          ))}
-          <Button
-            variant="contained"
-            startIcon={<AddIcon />}
-            style={{
-              marginRight: "51%",
-            }}
-            onClick={() => setAddTask(true)}
-          >
-            Add Task
-          </Button>
+            <h2
+              style={{
+                textAlign: "left",
+                marginLeft: "20%",
+              }}
+            >
+              Tasks:-
+            </h2>
+            {tasks.map((task) => (
+              <Task key={task.id} task={task} />
+            ))}
+            <Button
+              variant="contained"
+              startIcon={<AddIcon />}
+              style={{
+                marginRight: "51%",
+              }}
+              onClick={() => setAddTask(true)}
+            >
+              Add Task
+            </Button>
+          </div>
           <AddTask addTask={addTask} setAddTask={setAddTask} />
         </div>
       </div>

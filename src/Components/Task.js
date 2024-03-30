@@ -11,10 +11,13 @@ function Task({ task }) {
   );
   const [editTask, setEditTask] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
-  const { tasks, setTasks } = useContext(TaskContext);
+  const { tasks, setTasks, setOpenAlert, setAlertMessage } =
+    useContext(TaskContext);
 
   const handleDelete = () => {
     setTasks(tasks.filter((item) => item.id !== task.id));
+    setAlertMessage("Task Deleted Successfully!");
+    setOpenAlert(true);
   };
   const handleDetails = () => {
     setShowDetails(true);
